@@ -51,4 +51,5 @@ function playGame () {
     alert(`FINAL SCORE AFTER FIVE ROUNDS:\nYour score: ${humanScore} Computer score: ${computerScore}`)
 }
 
+alert(`Rules and Guidelines of the game:\n1. Type only rock, paper or scissors with exact spelling\n2. You may type ignore the strict use of lowercase i.e.\nyou may type RoCk or paPER, etc`)
 playGame()
