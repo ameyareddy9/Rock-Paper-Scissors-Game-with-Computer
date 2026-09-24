@@ -6,4 +6,8 @@ function getComputerChoice() {
     return (c < a) ? "rock" : (c < b) ? "paper" : "scissors"
 }
 
-console.log(getComputerChoice())
+function getHumanChoice() {
+    const playerChoice = prompt(`Type either "rock" or "paper" or "scissors"`)
+    return playerChoice
+}
+
