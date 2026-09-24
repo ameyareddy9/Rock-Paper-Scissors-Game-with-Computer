@@ -11,3 +11,32 @@ function getHumanChoice() {
     return playerChoice
 }
 
+let humanScore = 0
+let computerScore = 0
+
+function playRound(humanChoice, computerChoice) {
+    humanChoice = humanChoice.toLowerCase()
+
+    if(humanChoice !== computerChoice) {
+        const h = humanChoice
+        const c = computerChoice
+
+        if(h === "rock") {
+            if(c === "scissors") humanScore++
+            else computerScore++
+        }
+        else if(h === "scissors") {
+            if(c === "paper") humanScore++
+            else computerScore++
+        }
+        else {
+            if(c === "rock") humanScore++
+            else computerScore++
+        }
+    }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
