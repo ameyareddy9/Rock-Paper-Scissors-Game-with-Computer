@@ -14,9 +14,42 @@ function getHumanChoice() {
 let humanScore = 0
 let computerScore = 0
 
+const buttonContainer = document.createElement("div");
+
+const btn1 = document.createElement("button");
+const btn2 = document.createElement("button");
+const btn3 = document.createElement("button");
+
+btn1.textContent = "rock";
+btn2.textContent = "paper";
+btn3.textContent = "scissors";
+
+buttonContainer.appendChild(btn1);
+buttonContainer.appendChild(btn2);
+buttonContainer.appendChild(btn3);
+
+buttonContainer.style.display = 'flex';
+buttonContainer.style.gap = '20px'; 
+
+document.body.appendChild(buttonContainer);
+
+const output = document.createElement("div");
+document.body.appendChild(output);
+output.style.margin = "20px";
+output.style.whiteSpace = 'pre-line';
+
+const finalOutput = document.createElement("p");
+
+const winText = "Congratulations! You won the game!";
+const losText = "Hard luck! You lost the game...";
+const tieText = "Its a Tie!";
+
+finalOutput.style.fontWeight = 600;
+document.body.appendChild(finalOutput)
+
 function playGame () {
-    let humanScore = 0
-    let computerScore = 0
+    let humanScore = 0;
+    let computerScore = 0;
 
     function playRound(humanChoice, computerChoice) {
         humanChoice = humanChoice.toLowerCase()
@@ -39,17 +72,43 @@ function playGame () {
             }
         }
     }
-
-    let T = 5
-    while(T--) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        alert(`Round ${5-T}'s results\nYou chose ${humanSelection.toLowerCase()} and computer chose ${computerSelection}\nYour score = ${humanScore} and computer score = ${computerScore}`)
-    }
     
-    alert(`FINAL SCORE AFTER FIVE ROUNDS:\nYour score: ${humanScore} Computer score: ${computerScore}`)
+    let counter = 0;
+    buttonContainer.addEventListener('click', (e) => {
+        counter++;
+        switch(true) {
+            case counter > 5:
+                finalOutput.textContent = "";
+                output.textContent = "Game Over! Kindly refresh the page to restart the Game."
+                break;
+
+            case counter === 5:
+                const userChoice1 = e.target.textContent;
+                const computerChoice1 = getComputerChoice();
+
+                playRound(userChoice1, computerChoice1);
+
+                output.textContent = `Result of game after Five rounds:\n
+                You selected ${userChoice1} and Computer selected ${computerChoice1}\n
+                Your Score: ${humanScore}, Computer's Score: ${computerScore}`;
+
+                
+                if(humanScore > computerScore) finalOutput.textContent = winText;
+                else if(humanScore < computerScore)finalOutput.textContent = losText;
+                else finalOutput.textContent = tieText;
+                break;
+
+            default:
+                const userChoice2 = e.target.textContent;
+                const computerChoice2 = getComputerChoice();
+
+                playRound(userChoice2, computerChoice2);
+
+                output.textContent = `Round ${counter}\n
+                You selected ${userChoice2} and Computer selected ${computerChoice2}\n
+                Your Score: ${humanScore}, Computer's Score: ${computerScore}`;
+        }
+    });
 }
 
-alert(`Rules and Guidelines of the game:\n1. Type only rock, paper or scissors with exact spelling\n2. You may ignore the strict use of lowercase i.e.\nyou may type RoCk or paPER, etc`)
-playGame()
+playGame();
